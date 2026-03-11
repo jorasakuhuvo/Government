@@ -53,13 +53,15 @@ justify-content:center;
 .header h1{
 font-size:42px;
 margin:0;
-line-height:1.6
+line-height:1.6;
+letter-spacing:1px;
 }
 
 .header p{
 margin:0;
 font-size:32px;
 font-family:kasu;
+letter-spacing:3px;
 }
 
 /* 导航栏 */
@@ -79,6 +81,16 @@ font-size:15px;
 
 .nav a:hover{
 text-decoration:underline;
+}
+
+/* 罗达日期 */
+
+#joradate{
+width:1100px;
+margin:20px auto;
+text-align:center;
+font-size:16px;
+color:#333;
 }
 
 /* 主体 */
@@ -124,16 +136,18 @@ padding:20px;
 font-size:12px;
 }
 
-@font-face {
-font-family: kasu;
-src: url("kasu-jorasakuhuvo.ttf");
+/* 字体 */
+
+@font-face{
+font-family:kasu;
+src:url("kasu-jorasakuhuvo.ttf");
 }
+
 </style>
 
 </head>
 
 <body>
-
 
 <div class="top">
 
@@ -163,6 +177,15 @@ src: url("kasu-jorasakuhuvo.ttf");
 </div>
 
 
+<div class="timecontainer">
+
+<div id="joradate"></div>
+
+<div class="divider"></div>
+
+<div id="joradate2"></div>
+
+</div>
 
 <div class="container">
 
@@ -197,9 +220,9 @@ src: url("kasu-jorasakuhuvo.ttf");
 
 <h3>Latest News</h3>
 
-<p><b>Government Notice 2026-01</b></p>
+<p><b>Jorasakuhuvo Observed Thai Helicopters Circling Near Jorasakuhuvo's Airspace</b></p>
 
-<p>The government announces development of the national website.</p>
+<p>Starting at 15:13 on V.T. 2090 Natuno 3 Syva 14, Jorasakuhuvo observed Thai helicopters circling three times in succession near Jorasakuhuvo's airspace from the ground.</p>
 
 <p><b>Government Notice 2026-02</b></p>
 
@@ -245,5 +268,55 @@ Official Website of the Republic of Jorasakuhuvo<br>
 </div>
 
 
+<script>
+
+function updateJoraTime(){
+
+/* 获取UTC时间 */
+
+let now = new Date();
+let utc = now.getTime() + (now.getTimezoneOffset()*60000);
+
+/* 罗达时间 UTC+06:35:31 */
+
+let jora = new Date(utc + (6*3600000) + (35*60000) + (31*1000));
+
+let year = jora.getFullYear() + 64;
+
+/* 计算今年第几天 */
+
+let start = new Date(jora.getFullYear(),0,0);
+let diff = jora - start;
+let oneDay = 1000*60*60*24;
+let dayOfYear = Math.floor(diff/oneDay);
+
+/* Natuno */
+
+let month = Math.floor((dayOfYear-1)/28)+1;
+if(month>13){month=13;}
+
+let day = dayOfYear-(month-1)*28;
+
+/* 时分秒 */
+
+let hour = jora.getHours().toString().padStart(2,"0");
+let minute = jora.getMinutes().toString().padStart(2,"0");
+let second = jora.getSeconds().toString().padStart(2,"0");
+
+/* 显示 */
+
+document.getElementById("joradate").innerHTML =
+"V.T. "+year+" · Natuno "+month+" · Syva "+day+
+"<br>Jorasakuhuvo Standard Time<br>"+
+hour+":"+minute+":"+second+" · <b>UTC+06:35:31<b>";
+
+}
+
+/* 每秒更新 */
+
+updateJoraTime();
+setInterval(updateJoraTime,1000);
+
+</script>
 </body>
 </html>
