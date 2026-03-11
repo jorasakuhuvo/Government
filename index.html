@@ -242,13 +242,17 @@ margin-top:15px;
 
 <h3>Latest News</h3>
 
-<p><b>Jorasakuhuvo Observed Thai Helicopters Circling Near Jorasakuhuvo's Airspace</b></p>
+<p><b>Thai Helicopters Circling Near Jorasakuhuvo's Airspace Today</b></p>
 
-<p>Starting at 15:13 on V.T. 2090 Natuno 3 Syva 14, Jorasakuhuvo observed Thai helicopters circling three times in succession near Jorasakuhuvo's airspace from the ground.</p>
+<p>Starting from 14:48 to 14:51 on V.T. 2090 Natuno 3 Syva 14, Jorasakuhuvo observed Thai helicopters circling three times in succession near Jorasakuhuvo's airspace from the ground.</p>
 
-<p><b>Government Notice 2026-02</b></p>
+<p><b>The Condemnation Includes Any Act of Publicly Humiliating Vasians</b></p>
 
-<p>Promotion of the Jorasakuhuvian language continues.</p>
+<p>Jorasakuhuvo emphasized that prohibiting the humiliation of citizens does not mean that people cannot offer reasonable advice, suggestions, or criticism. Rather, it means that expressions should avoid tones or language that may cause psychological or emotional harm to others.</p>
+
+<p><b>The President Has Been Repeatedly Attacked with Rubber by Foreigners</b></p>
+
+<p>On the afternoon of V.T. 2090 Natuno 3 Syva 9, Pemife Noraane was struck in the back with a rubber bullet at least three times. An investigation into suspected perpetrators is ongoing. Jorasakuhuvo stated that this was a less-than-honorable act of opposition to the president.</p>
 
 </div>
 
@@ -304,7 +308,7 @@ Respect for the anthem is voluntary.<br>
 You may choose to close this notice or remain to listen.
 </p>
 
-<video width="500" controls autoplay>
+<video id="anthemVideo" width="500" autoplay>
 <source src="anthem.mp4" type="video/mp4">
 </video>
 
@@ -364,23 +368,47 @@ hour+":"+minute+":"+second+" · <b>UTC+06:35:31</b>";
 
 if(hour=="08" && minute=="00" && second=="00" && !anthemMorningPlayed){
 
-document.getElementById("anthemPopup").style.display="flex";
+showAnthem();
 anthemMorningPlayed=true;
 
 }
 
 if(hour=="18" && minute=="00" && second=="00" && !anthemEveningPlayed){
 
-document.getElementById("anthemPopup").style.display="flex";
+showAnthem();
 anthemEveningPlayed=true;
 
 }
 
 }
 
+function showAnthem(){
+
+let popup=document.getElementById("anthemPopup");
+let video=document.getElementById("anthemVideo");
+
+popup.style.display="flex";
+
+video.currentTime=0;
+video.play();
+
+/* 播放结束自动关闭 */
+
+video.onended=function(){
+closeAnthem();
+};
+
+}
+
 function closeAnthem(){
 
-document.getElementById("anthemPopup").style.display="none";
+let popup=document.getElementById("anthemPopup");
+let video=document.getElementById("anthemVideo");
+
+popup.style.display="none";
+
+video.pause();
+video.currentTime=0;
 
 }
 
