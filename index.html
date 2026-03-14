@@ -266,7 +266,7 @@ function updateJoraTime(){
 let now = new Date();
 let utc = now.getTime() + (now.getTimezoneOffset()*60000);
 
-let jora = new Date(utc + (6*3600000) + (35*60000) + (31*1000));
+let jora = new Date(utc + (6*3600000) + (35*60000) + (30*1000));
 
 let year = jora.getFullYear() + 64;
 
